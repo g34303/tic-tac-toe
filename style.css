@@ -1,0 +1,454 @@
+html {
+  scroll-behavior: smooth;
+  font-family: "Lexend", sans-serif;
+  color: rgba(102, 0, 177, 1);
+}
+
+body {
+  margin: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* for the holo background */
+.foil {
+  position: fixed;
+	opacity: 2;
+	width:100%;
+	height:100%;
+	clip-path: url(#myClip);
+	background: linear-gradient(
+		48deg,
+		#e3c1f4, /* Light Pink */
+		#d9d7ed, /* Very Light Blue */
+		#dff7f1, /* Very Light Green */
+		#acf0ff, /* Light Blue */
+		#e3c1f4, /* Light Pink */
+		#d9d7ed, /* Very Light Blue */
+		#dff7f1, /* Very Light Green */
+		#acf0ff, /* Light Blue */
+		#e3c1f4 /* Light Pink */
+	);
+	animation: foil 8s ease infinite;
+	background-size: 200% 200%;
+  z-index: -1;
+}
+
+.switch {
+    background-color: #ddd;
+    border-radius: 18px;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    padding: 3px;
+    position: relative;
+    vertical-align: top;
+    width: 56px;
+    margin: 0px 5px;
+}
+.switch-input {
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+}
+.switch-label {
+    background: #e630df none repeat scroll 0 0;
+    border-radius: inherit;
+    display: block;
+    font-size: 10px;
+    height: inherit;
+    position: relative;
+    transition: all 0.15s ease-out 0s;
+}
+.switch-label::before, .switch-label::after {
+    line-height: 1;
+    margin-top: -0.5em;
+    position: absolute;
+    top: 50%;
+    transition: inherit;
+}
+/*
+.switch-label::before {
+    color: #aaa;
+    content: attr(data-off);
+    right: 11px;
+}
+.switch-label::after {
+    color: white;
+    content: attr(data-on);
+    left: 11px;
+    opacity: 0;   
+}
+*/
+.switch-input:checked ~ .switch-label {
+    background: #47a8d8 none repeat scroll 0 0;
+}
+/*
+.switch-input:checked ~ .switch-label::before {
+    opacity: 0;
+}
+.switch-input:checked ~ .switch-label::after {
+    opacity: 1;
+}
+*/
+.switch-handle {
+    background-color: #fff;
+    border-radius: 10px;
+    height: 18px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    transition: left 0.15s ease-out 0s;
+    width: 18px;
+}
+.switch-handle::before {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    content: "";
+    height: 12px;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    position: absolute;
+    top: 50%;
+    width: 12px;
+}
+.switch-input:checked ~ .switch-handle {
+    left: 40px;
+}
+
+button {
+      font-family: "Lexend", sans-serif;
+      background-color: rgba(55, 0, 167, 0.1);
+      color: #EF476F;
+      padding: 15px;
+      border-radius: 0.75rem;
+      font-size: 3rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 0px 10px;
+      transition: 0.25s; 
+      border: 2px solid #984bbc00;
+}
+
+button.active {
+  opacity: 1;
+  border: 2px solid #984bbc9c;
+  background: #c974ff7a;
+}
+
+button:hover {
+  box-shadow: 0 0 10px rgba(102, 0, 177, 1);
+  text-shadow: 0 0 10px rgba(102, 0, 177, 1);
+  transition: 0s;
+  background-color: #c974ff7a;
+}
+
+@keyframes foil {
+	0% {
+		background-position: 84% 0;
+	}
+	50% {
+		background-position: 17% 100%;
+	}
+	100% {
+		background-position: 84% 0;
+	}
+}
+
+.tttlogo {
+  width: 55%;
+  margin: 0px auto 10px auto;
+}
+
+.numofplayers {
+  margin: 10px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+/*.progress {
+  padding: 2px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.25);  
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+} 
+
+/* ^this just adds an extra shadow */
+
+.progress-bar {
+  position: absolute;
+  top: 83%;
+  left: 5%;
+  height: 10px;
+  border-radius: 30px;
+  background-image: 
+  linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+  transition: 0.4s linear;  
+  transition-property: width, background-color;    
+}
+
+.progress-moved .progress-bar {
+  width: 90%; 
+  background-color: #EF476F;  
+  animation: progressAnimation 1s;
+  /*animation-iteration-count: 1;*/
+}
+
+@keyframes progressAnimation {
+  0%   { width: 5%; background-color: #F9BCCA;}
+  100% { width: 90%; background-color: #EF476F; }
+}
+
+/* MOVING PROGRESS BARS BASED ON WIN TYPE BELOW */
+/* top row win*/
+.win-012 {
+  /* top: 55%; */
+  top: calc(20px + (95px / 2) - (5px / 2)); /* Align vertically in the middle of the first row cell, accounting for padding and slash thickness (assuming 5px thickness) */
+  left: 20px; /* Align with the left edge, accounting for padding */
+  width: calc(100% - 60px); /* Span the width of the grid area, accounting for padding */
+  height: 8px; /* Define slash thickness */
+  transform: none; /* No rotation */
+}
+
+/* TL to BR win */
+.win-048 {
+  top: 48%;
+  transform: rotate(28deg);
+  position: relative;
+}
+
+.win-036 {
+    top: 47%;
+    width: 55%;
+    transform: rotate(90deg);
+    position: relative;
+}
+
+.win-147 {
+    top: 47%;
+    left: 23%;
+    width: 55%;
+    transform: rotate(90deg);
+    position: relative;
+}
+
+.win-246 {
+  top: 47%;
+  transform: rotate(-28deg);
+  position: relative;
+}
+
+.win-258 {
+    top: 47%;
+    left: 46.5%;
+    width: 55%;
+    transform: rotate(90deg);
+    position: relative;
+}
+
+/* middle row win */
+.win-345 {
+  top: 50%;
+
+}
+
+/* bottom row win */
+.win-678 {
+  top: 78%;
+}
+
+.tttgame {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 80%;
+  width: 30%;
+  margin: 10px 0 30px 0;
+  z-index: 1;
+  background-color: rgba(250, 242, 246, 0.65);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.tttgame-buttons {
+  text-align: center;
+}
+
+#reset-btn {
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 10%;
+  opacity: 0.9;
+  background: #3e2760;
+  color: #ffffff;
+}
+
+#reset-btn h5 {
+  margin: 0 auto;
+}
+
+.gameboard {
+  position: relative;
+}
+
+.gameboard-btns {
+  display: grid;
+  width: 70%;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-row: 1fr 1fr 1fr;
+  padding: 25px;
+  margin: 0px auto 0px auto;
+}
+
+.gameboard button {
+  margin: 5px auto;
+  height: 85px;
+  width: 90%;
+  font-size: 2.2rem;
+  text-align: center;
+  color: rgba(102, 0, 177, 1);
+}
+
+.thinking {
+  margin: 0 auto;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  margin: 0 auto;
+  padding-top: 50%;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7); 
+  animation: fadeIn .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.out  {
+        animation: fadeOut .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+        display: none;
+      }
+
+.modal-content {
+  font-size: 70px;
+  background-color: #fefefe;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid rgba(102, 0, 177, 1);
+  border-radius: 15px;
+  width: 28%;
+  animation: slideUpLarge .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+}
+
+.slide-out {
+  animation: slideDownLarge .5s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+  display: none;
+}
+
+.dots::after {
+  content: '';
+  display: inline-block;
+  width: 1ch;
+  animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes fadeIn {
+  0% {
+    background:rgba(0,0,0,.0);
+  }
+  100% {
+    background:rgba(0,0,0,.7);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    background:rgba(0,0,0,.7);
+  }
+  100% {
+    background:rgba(0,0,0,.0);
+    display: none;
+ }
+}
+
+@keyframes slideUpLarge {
+  0% {
+    transform:translateY(0%);
+  }
+  100% {
+    transform:translateY(-50%);
+  }
+}
+
+@keyframes slideDownLarge {
+  0% {
+    transform:translateY(-50%);
+  }
+  100% {
+    transform:translateY(0%);
+    display: none;
+  }
+}
+
+@keyframes dots {
+  0%   { content: ''; }
+  25%  { content: '.'; }
+  50%  { content: '..'; }
+  75%  { content: '...'; }
+  100% { content: ''; }
+}
+
+footer {
+  margin: 10px 20px;
+}
+
+@media only screen and (max-width: 1280px) {
+  .tttgame {
+   width: 40vw;
+  }
+} /*For media query 1280px*/
+
+@media only screen and (max-width: 960px) {
+  .tttgame {
+   width: 50vw;
+  }
+} /*For media query 960px*/
+
+@media only screen and (max-width: 780px) {
+  .tttgame {
+   width: 90vw;
+  }
+} /*For media query px*/
+
+@media only screen and (max-width: 450px) {
+  .tttgame {
+   width: 90vw;
+  }
+  
+  @media only screen and (max-width: 780px) {
+  .tttgame {
+   width: 90vw;
+  }
+    
+}
+} /*For media query 400px*/
